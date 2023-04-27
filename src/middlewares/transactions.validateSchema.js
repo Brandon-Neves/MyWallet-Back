@@ -3,13 +3,13 @@ import dayjs from 'dayjs'
 
 export default function transactionsSchemaValidate(req, res, next) {
   const { type, value, description } = req.body
-  let userid = res.locals.user._id
+  let userId = res.locals.user._id
 
   const userTransaction = {
     value,
     description,
     type,
-    user: userid,
+    user: userId,
     cretedAt: dayjs().format('DD/MM/YYYY')
   }
 
