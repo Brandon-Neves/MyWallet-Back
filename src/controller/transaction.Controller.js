@@ -1,25 +1,31 @@
-import db from "../database/database.js";
+import db from '../database/database.js'
+import dayjs from 'dayjs'
 
 export async function newTransaction(req, res) {
   const transaction = res.locals.transaction
+  console.log(transaction)
   try {
     await db.collection('transactions').insertOne(transaction)
-    res.SendStatus(201)
+    res.status(201).send('Transação registrada com sucesso')
   } catch (err) {
     console.log(err)
-    res.SendStatus(500)
+    res.status(500).send(err.message)
   }
 }
 
 export async function getTransactions(req, res) {
   const user = res.locals.user
+  console.log(user)
 
   try {
-    const transactions = await db.collection('transactions').find({user:user.id}).toArray()
+    const transactions = await db
+      .collection('transactions')
+      .find({ user: user.id })
+      .toArray()
     delete user.password
-    res.send({transactions, user})
+    res.send({ transactions, user })
   } catch (err) {
     console.log(err)
-    res.SendStatus(500)
+    res.sendStatus(500)
   }
 }
