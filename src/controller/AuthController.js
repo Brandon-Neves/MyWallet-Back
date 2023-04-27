@@ -19,13 +19,14 @@ export async function signUp(req, res) {
 export async function login(req, res) {
   const token = uuid()
   const user = res.locals.user
+  const { name } = res.locals.user
 
   try {
     await db.collection('sessions').insertOne({
       userId: user._id,
       token
     })
-    res.send({ token })
+    res.send({ token, name })
   } catch (err) {
     console.log(err)
     return res.status(500).send(err)
