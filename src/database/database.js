@@ -2,7 +2,7 @@ import dotenv from 'dotenv'
 import { MongoClient } from 'mongodb'
 dotenv.config()
 
-const mongoCLient = new MongoClient('mongodb://127.0.0.1:27017/mywallet')
+const mongoCLient = new MongoClient(process.env.MONGO_URI)
 
 let db
 
